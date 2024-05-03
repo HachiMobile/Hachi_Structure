@@ -8,10 +8,12 @@ import {IconClose} from "@/assets/icons/IconClose.ts";
 import {ScreenList} from "@/shared/constant/screen-navigators.const.ts";
 import {MScreenModel} from "@/shared/models/M-Screen.model.ts";
 import {palette} from "@/theme/themes.ts";
+import {NavigationProp, ParamListBase, useNavigation} from "@react-navigation/native";
 
 let stackScreen: any[] = []
 let lengthStackScreen: any[] = []
 const MenuScreen = (props: any) => {
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
     const [isPressedItem, setPressedItem] = useState(false); // Kiểm tra đã touch vào item chưa
     const [currItem, setCurrItem] = useState<any>(''); // Kiểm tra item hiện tại
     const [isHasChild, setHasChild] = useState(false); // Kiểm tra có con hay không
@@ -120,7 +122,7 @@ const MenuScreen = (props: any) => {
 
                     <View>
                         <TouchableOpacity onPress={() => {
-                            props.navigation.closeDrawer();
+                            navigation.goBack();
                             setFilterScreen(props.screenArray);
                             setHasChild(false)
                         }}>

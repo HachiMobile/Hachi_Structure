@@ -30,6 +30,7 @@ import type {
 	Variant,
 } from '@/types/theme/config';
 import React from 'react'
+import {StateStorage} from "zustand/middleware";
 // Types
 
 type Context = Theme & {
@@ -39,27 +40,28 @@ type Context = Theme & {
 export const ThemeContext = createContext<Context | undefined>(undefined);
 
 type Props = PropsWithChildren<{
-	storage: MMKV;
+	storage: StateStorage;
 }>;
 
 function ThemeProvider({ children, storage }: Props) {
 	// Current theme variant
 	const [variant, setVariant] = useState(
-		(storage.getString('theme') as Variant) || 'default',
+		(storage.getItem('theme') as Variant) || 'default',
 	);
 
 	// Initialize theme at default if not defined
 	useEffect(() => {
-		const appHasThemeDefined = storage.contains('theme');
+		const appHasThemeDefined = storage.getItem('theme');
+		console.log('theme', appHasThemeDefined);
 		if (!appHasThemeDefined) {
-			storage.set('theme', 'default');
+			storage.setItem('theme', 'default');
 			setVariant('default');
 		}
 	}, []);
 
 	const changeTheme = (nextVariant: Variant) => {
 		setVariant(nextVariant);
-		storage.set('theme', nextVariant);
+		storage.setItem('theme', nextVariant);
 	};
 
 	// Flatten config with current variant

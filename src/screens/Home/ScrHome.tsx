@@ -2,22 +2,42 @@ import {Alert, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity
 import CSectionTitle from "@/shared/components/C-SectionTitle/C-SectionTitle.tsx";
 import {useTheme} from "@/theme";
 import * as React from 'react';
-import {useState} from 'react';
-import CardProductList from "@/screens/Product/components/C-CardProductList.tsx";
+import {useEffect, useState} from 'react';
 import {palette} from "@/theme/themes.ts";
 import IconSeeMore from "@/assets/icons/IconSeeMore.ts";
 import {mvs} from "@/shared/utils/responsive.ts";
-import {productMockData} from "@/screens/Product/constant/productMockupData.const.ts";
 import newProductIcon from "@/assets/icons/IconNewProduct.ts";
 import {SvgXml} from "react-native-svg";
 import {IconMenu} from "@/assets/icons/IconMenu.ts";
 import {BlogItem} from "@/screens/Blog";
 import {blogMockDataConst} from "@/screens/Blog/constant/blogMockData.const.ts";
+import useApiHook from "@/shared/services/axios-service.ts";
+
+type MenuItem = {
+    Code: number;
+    Name: string;
+    MenuName: string;
+    Image: string;
+    Link: string;
+    TypeData: number;
+    StartDate: Date | null;
+    EndDate: Date | null;
+    SortOrder: number;
+};
 
 const ScrHome: React.FC = (props: any) => {
-    const { gutters, layout, backgrounds } = useTheme()
+    const {gutters, layout, backgrounds} = useTheme()
     const mockData = ['Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g']
     const defaultWidth = Dimensions.get('window').width - gutters.paddingHorizontal_14.paddingHorizontal * 2;
+
+    useEffect(() => {
+        const {data, loading, error} = useApiHook<MenuItem[]>(
+            "public/Home_GetBanner"
+        );
+        console.log('data', data);
+        console.log('loading', loading);
+        console.log('error', error);
+    }, []);
 
 
     //#region C-Header
@@ -65,15 +85,15 @@ const ScrHome: React.FC = (props: any) => {
             <ScrollView>
                 {renderHeader()}
                 <ScrollView style={[gutters.paddingHorizontal_14, layout.flex_1,]}>
-                    <View style={[gutters.marginTop_12]}><CardProductList dataProduct={productMockData}/></View>
+                    {/*<View style={[gutters.marginTop_12]}><CardProductList dataProduct={productMockData}/></View>*/}
                     <View style={[gutters.marginTop_14]}>
                         <CSectionTitle prefixIcon={newProductIcon} title='Sản phẩm mới' suffixIcon={IconSeeMore}/>
-                        <View style={[gutters.marginTop_14]}><CardProductList dataProduct={productMockData}/></View>
+                        {/*<View style={[gutters.marginTop_14]}><CardProductList dataProduct={productMockData}/></View>*/}
                     </View>
 
                     <View style={[gutters.marginTop_14]}>
                         <CSectionTitle title='Sản phẩm đã xem' suffixIcon={IconSeeMore}/>
-                        <View style={[gutters.marginTop_14]}><CardProductList dataProduct={productMockData}/></View>
+                        {/*<View style={[gutters.marginTop_14]}><CardProductList dataProduct={productMockData}/></View>*/}
                     </View>
                     <View style={[gutters.marginVertical_10]}>
                         <CSectionTitle title='Hachi Hachi Blog' suffixIcon={IconSeeMore}/>

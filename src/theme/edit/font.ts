@@ -3,7 +3,7 @@ const sizes = [
     40, 48
 ] as const
 
-//Available font family
+//Available global font family
 const families = {
     Regular_PlusJakartaSans: 'PlusJakartaSans-Regular',
     Medium_PlusJakartaSans: 'PlusJakartaSans-Medium',

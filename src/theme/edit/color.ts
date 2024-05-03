@@ -1,3 +1,5 @@
+//THEME COLOR FOR MODES
+
 const colorsLight = {
     // PRIMARY
     primaryA: '#2969FF',

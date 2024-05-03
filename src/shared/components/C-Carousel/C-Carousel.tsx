@@ -3,7 +3,6 @@ import {useTheme} from "@/theme";
 import React, {memo, useRef, useState} from "react";
 import Carousel, {ICarouselInstance} from "react-native-reanimated-carousel";
 import {CarouselCustomModel} from "@/shared/components/C-Carousel/models/M-Carousel.ts";
-import DefaultCarouselItem from "@/shared/components/C-Carousel/C-DefaultCarousel.tsx";
 
 const defaultWidth = Dimensions.get('window').width - 28;
 let defaultHeight = 260;
@@ -21,7 +20,7 @@ const paginate = (index: number, data: any, dotStyle: any, activeIndex: any, act
             {
                 data.map((_: any, i: number) => {
                     return (
-                        <Dot key={i} ></Dot>
+                        <Dot key={i}></Dot>
                     )
                 })
             }
@@ -29,7 +28,7 @@ const paginate = (index: number, data: any, dotStyle: any, activeIndex: any, act
     );
 }
 const CarouselCustom = (props) => {
-const {fonts, gutters, layout, backgrounds, borders} = useTheme()
+    const {fonts, gutters, layout, backgrounds, borders} = useTheme()
 
     const {
         data,
@@ -55,7 +54,7 @@ const {fonts, gutters, layout, backgrounds, borders} = useTheme()
     const _carousel = useRef<ICarouselInstance>(null);
     const handleItemPress = (item: any) => {
         if (navigationComponentName) {
-            navigation.navigate(navigationComponentName as never, {item:item} as never)
+            navigation.navigate(navigationComponentName as never, {item: item} as never)
         }
     }
     const handleSnapToItem = (currentIndex: number) => {

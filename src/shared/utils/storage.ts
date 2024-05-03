@@ -16,7 +16,7 @@ export const appPersistStorage = new MMKV({
     id: STORAGE_CONFIG.id
 })
 
-const zustandMMKVStorage: StateStorage = {
+export const zustandMMKVStorage: StateStorage = {
 
     setItem: (name: string, value) => {
         return appPersistStorage.set(name, value);

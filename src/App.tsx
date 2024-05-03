@@ -6,16 +6,14 @@ import {ThemeProvider} from '@/theme';
 
 import ApplicationNavigator from '@/navigator/Application';
 import React from 'react'
+import {zustandMMKVStorage} from "@/shared/utils/storage.ts";
 
 const queryClient = new QueryClient();
-
-//
-export const storage = new MMKV();
 
 function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ThemeProvider storage={storage}>
+			<ThemeProvider storage={zustandMMKVStorage}>
 				<ApplicationNavigator />
 			</ThemeProvider>
 		</QueryClientProvider>
