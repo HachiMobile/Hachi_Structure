@@ -1,143 +1,96 @@
-import {Dimensions, Image, StyleSheet, Text, View} from "react-native"
-import {SvgXml} from "react-native-svg"
-import IconCardAdd from "@/assets/icons/IconCardAdd.ts"
-import * as React from "react"
-import {palette} from "@/theme/themes.ts"
+import * as React from "react";
+import { useState } from "react";
+import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const defaultWidth = Dimensions.get('window').width;
-const CardProductItemList = (props) => {
-  const { dataProduct } = props;
-  // Hàm format số => 1.000, 10.000
-  const formatNumber = (number: Number) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
+import { palette } from "@/theme/themes.ts";
+import { SvgXml } from "react-native-svg";
+import IconArrowUp from "@/assets/icons/IconArrowUp.ts";
+import CCardProductItem from "./C-CardProductItem";
 
-  return (
-      <View style={styleProductItem.cardFrame} >
-        <View style={styleProductItem.viewImg}>
-          <Image
-              style={{ width: '100%', height: 165 }}
-              source={{
-                uri:
-                dataProduct.Thumbnail
-              }} />
-        </View>
-
-        <View style={styleProductItem.frameContent}>
-          <Text style={styleProductItem.title} ellipsizeMode="tail" numberOfLines={2}>{dataProduct.NameProduct}</Text>
-          {(dataProduct.Discount !== undefined && dataProduct.Discount !== null) ? (
-              <View>
-                <View style={styleProductItem.framePrice}>
-                  <Text style={styleProductItem.priceHasDiscount}>{formatNumber(dataProduct.Price || 0)}đ </Text>
-
-                  <View style={styleProductItem.discount}>
-                    <Text style={styleProductItem.textDiscount}>{dataProduct.Discount}%</Text>
-                  </View>
-                </View>
-                <View style={styleProductItem.framePriceDiscount}>
-                  <Text style={styleProductItem.priceDiscount}>{formatNumber(dataProduct.PriceDiscount || 0)}đ </Text>
-                  <SvgXml xml={IconCardAdd} />
-                </View>
-              </View>
-
-          ) : (
-              <View style={[styleProductItem.framePriceDiscount, { marginTop: 36 }]}>
-                <Text style={styleProductItem.priceOrigin}>{formatNumber(dataProduct.Price || 0)}đ </Text>
-                <SvgXml xml={IconCardAdd} />
-              </View>
-          )
-          }
-
-          {dataProduct.ImgGift !== null && dataProduct.ImgGift !== undefined && (
-              <View style={{ flexDirection: 'row', maxWidth: 165, position: 'relative', bottom: -10, alignItems: 'center', gap: 5 }}>
-                <Image
-                    style={{ width: 34, height: 24 }}
-                    source={{
-                      uri:
-                      dataProduct.ImgGift
-                    }} />
-                <Text style={{ fontSize: 12, fontWeight: '400', color: '#586059' }}>{dataProduct.TitleGift}</Text>
-              </View>
-          )}
-
-        </View>
-      </View>
-  )
+interface CardList {
+  dataProduct: any[],
+  isAppearButton?: boolean
 }
 
-const styleProductItem = StyleSheet.create({
-  cardFrame: {
-    width: defaultWidth / 2,
-    height: 319,
-    backgroundColor: palette.White
+const CardList = (props) => {
+  const { dataProduct } = props;
+  const windowWidth = Dimensions.get('window').width - 28; // Lấy chiều rộng của màn hình 64 là padding của view layout 32 + 32
+  const numColumns = Math.floor(windowWidth / 165); // TÍnh số cột 165 là width của item product card 
+  const totalItemWidth = numColumns * 165; // Tính tổng chiều rộng
+  const totalSpacing = windowWidth - totalItemWidth; // Tính khoảng trống còn lại
+  //enum paddingLeft = totalSpacing / 2; // tính padding
+  //enum paddingRight = totalSpacing / 4;
+  const [visibleItemCount, setVisibleItemCount] = useState(4); // State hiển thị tối thiểu số lượng item
+  const isAppearButton = dataProduct.isAppearButton // Biến trạng thái xuất hiện nút xem thêm
+
+  const handleLoadMore = () => {
+    setVisibleItemCount(dataProduct.length); // Hiển thị tất cả item khi nhấn vào nút "Xem thêm"
+  };
+
+  return (
+    <View style={[styles.container,]}>
+      <FlatList
+        data={dataProduct.slice(0, visibleItemCount)}
+        numColumns={numColumns}
+        renderItem={({ item }) =>
+          <View style={{ marginBottom: totalSpacing }}>
+            <CCardProductItem
+              dataProduct={item}
+            // NameProduct={item.NameProduct}
+            // Thumbnail={item.Thumbnail}
+            // Price={item.Price}
+            // Discount={item.Discount}
+            // PriceDiscount={item.PriceDiscount}
+            // ImgGift={item.ImgGift}
+            // TitleGift={item.TitleGift}
+
+            />
+          </View>}
+        keyExtractor={(item, index) => index.toString()}
+        showsVerticalScrollIndicator={false}
+        scrollEnabled={false}
+      />
+      {visibleItemCount < dataProduct.length && isAppearButton == true && (
+        <View style={styles.posBtnAddMore}>
+          <TouchableOpacity style={styles.btnAddMore} onPress={handleLoadMore}>
+            <Text style={styles.btnAddMoreText}>Xem thêm</Text>
+            <SvgXml xml={IconArrowUp} />
+          </TouchableOpacity>
+        </View>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    paddingBottom: 10,
+    minHeight: 700
   },
 
-  frameContent: {
-    paddingHorizontal: 8,
-    paddingTop: 8
+  posBtnAddMore: {
+    flexDirection: 'row', justifyContent: 'center'
   },
-
-  viewImg: {
-    width: '100%',
-    height: 165
-  },
-
-  title: {
-    color: palette.Green_gray_800,
-    fontSize: 14,
-    fontWeight: '500',
-    width: '100%',
-    overflow: 'hidden'
-  },
-
-  framePrice: {
+  btnAddMore: {
     flexDirection: 'row',
-    columnGap: 5,
-    marginTop: 10
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: palette.Green_gray_200,
+    borderRadius: 20,
+    backgroundColor: '#FFFF',
+    borderWidth: 1,
+    width: 117,
+    height: 32
   },
-
-  priceHasDiscount: {
-    color: palette.Grey_65,
-    textDecorationLine: 'line-through',
-    fontWeight: '400',
-    fontSize: 12
-  },
-
-  discount: {
-    backgroundColor: palette.Red_500,
-    width: 33,
-    height: 17,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5
-
-  },
-
-  framePriceDiscount: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 8,
-
-  },
-
-  textDiscount: {
-    color: palette.Gray_100,
-    fontSize: 12,
-    fontWeight: '400',
-    textAlign: 'center'
-  },
-
-  priceDiscount: {
-    color: palette.Red_400,
-    fontSize: 18,
-    fontWeight: '600'
-  },
-
-  priceOrigin: {
+  btnAddMoreText: {
+    color: palette.Darkgreen_650,
+    fontSize: 13,
     fontWeight: '600',
-    fontSize: 18,
-    color: '#0A4E17'
+    textAlign: 'center',
+    marginRight: 6
   }
-})
-export default CardProductItemList
+});
+
+export default CardList;

@@ -1,17 +1,19 @@
-import {Alert, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { Alert, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import CSectionTitle from "@/shared/components/C-SectionTitle/C-SectionTitle.tsx";
-import {useTheme} from "@/theme";
+import { useTheme } from "@/theme";
 import * as React from 'react';
-import {useEffect, useState} from 'react';
-import {palette} from "@/theme/themes.ts";
+import { useEffect, useState } from 'react';
+import { palette } from "@/theme/themes.ts";
 import IconSeeMore from "@/assets/icons/IconSeeMore.ts";
-import {mvs} from "@/shared/utils/responsive.ts";
+import { mvs } from "@/shared/utils/responsive.ts";
 import newProductIcon from "@/assets/icons/IconNewProduct.ts";
-import {SvgXml} from "react-native-svg";
-import {IconMenu} from "@/assets/icons/IconMenu.ts";
-import {BlogItem} from "@/screens/Blog";
-import {blogMockDataConst} from "@/screens/Blog/constant/blogMockData.const.ts";
+import { SvgXml } from "react-native-svg";
+import { IconMenu } from "@/assets/icons/IconMenu.ts";
+import { BlogItem } from "@/screens/Blog";
+import { blogMockDataConst } from "@/screens/Blog/constant/blogMockData.const.ts";
 import useApiHook from "@/shared/services/axios-service.ts";
+import { productMockData } from "../Product/constant/productMockupData.const";
+import { CardProductList } from "../Product";
 
 type MenuItem = {
     Code: number;
@@ -26,19 +28,16 @@ type MenuItem = {
 };
 
 const ScrHome: React.FC = (props: any) => {
-    const {gutters, layout, backgrounds} = useTheme()
+    const { gutters, layout, backgrounds } = useTheme()
     const mockData = ['Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g', 'Kẹo muối khoáng chất Bourbon vị bưởi 104g']
     const defaultWidth = Dimensions.get('window').width - gutters.paddingHorizontal_14.paddingHorizontal * 2;
+    const { data, loading, error } = useApiHook<MenuItem[]>("public/Home_GetBanner");
 
     useEffect(() => {
-        const {data, loading, error} = useApiHook<MenuItem[]>(
-            "public/Home_GetBanner"
-        );
         console.log('data', data);
         console.log('loading', loading);
         console.log('error', error);
-    }, []);
-
+    }, [data, loading, error]);
 
     //#region C-Header
     const renderHeader = () => {
@@ -64,11 +63,11 @@ const ScrHome: React.FC = (props: any) => {
                     <View style={styles.headerBottomFirst}>
                         <Image source={require('@/assets/images/LogoHachiHachi.png')}></Image>
 
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={{ flexDirection: 'row' }}>
                             <TouchableOpacity onPress={() => props.navigation.navigate('Menu')}>
-                                <View style={{marginLeft: 22}}>
-                                    <SvgXml xml={IconMenu}/>
-                                    <Text style={{color: '#268F3B', fontWeight: '700', fontSize: 11}}>MENU</Text>
+                                <View style={{ marginLeft: 22 }}>
+                                    <SvgXml xml={IconMenu} />
+                                    <Text style={{ color: '#268F3B', fontWeight: '700', fontSize: 11 }}>MENU</Text>
                                 </View>
                             </TouchableOpacity>
 
@@ -85,19 +84,13 @@ const ScrHome: React.FC = (props: any) => {
             <ScrollView>
                 {renderHeader()}
                 <ScrollView style={[gutters.paddingHorizontal_14, layout.flex_1,]}>
-                    {/*<View style={[gutters.marginTop_12]}><CardProductList dataProduct={productMockData}/></View>*/}
                     <View style={[gutters.marginTop_14]}>
-                        <CSectionTitle prefixIcon={newProductIcon} title='Sản phẩm mới' suffixIcon={IconSeeMore}/>
-                        {/*<View style={[gutters.marginTop_14]}><CardProductList dataProduct={productMockData}/></View>*/}
-                    </View>
-
-                    <View style={[gutters.marginTop_14]}>
-                        <CSectionTitle title='Sản phẩm đã xem' suffixIcon={IconSeeMore}/>
-                        {/*<View style={[gutters.marginTop_14]}><CardProductList dataProduct={productMockData}/></View>*/}
+                        <CSectionTitle title='Sản phẩm đã xem' suffixIcon={IconSeeMore} />
+                        <View style={[gutters.marginTop_14]}><CardProductList dataProduct={productMockData} /></View>
                     </View>
                     <View style={[gutters.marginVertical_10]}>
-                        <CSectionTitle title='Hachi Hachi Blog' suffixIcon={IconSeeMore}/>
-                        <BlogItem data={blogMockDataConst}/>
+                        <CSectionTitle title='Hachi Hachi Blog' suffixIcon={IconSeeMore} />
+                        <BlogItem data={blogMockDataConst} />
                     </View>
                 </ScrollView>
             </ScrollView>

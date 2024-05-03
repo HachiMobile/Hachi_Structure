@@ -1,6 +1,6 @@
-import {DEFAULT_CONFIG} from "@/shared/constant/value.const.ts";
-import {useEffect, useState} from 'react';
-import axios, {AxiosRequestConfig, AxiosResponse, ResponseType} from 'axios';
+import { DEFAULT_CONFIG } from "@/shared/constant/value.const.ts";
+import { useEffect, useState } from 'react';
+import axios, { AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
 
 export const instance = axios.create({
     baseURL: DEFAULT_CONFIG.BE_URL,
@@ -13,7 +13,7 @@ export const useApiHook = <T>(url: string, params?: AxiosRequestConfig) => {
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-
+    console.log('abc')
     useEffect(() => {
         const fetchData = async () => {
             try {
