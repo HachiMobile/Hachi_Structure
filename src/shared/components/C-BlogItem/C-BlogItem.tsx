@@ -1,7 +1,7 @@
 import React from "react";
 import {Dimensions, Image, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import {useTheme} from "@/theme";
-import BlogItemModel from "@/screens/Blog/models/M-BlogItem.model.ts";
+import BlogItemModel from "@/shared/models/M-BlogItem.model.ts";
 import {NavigationProp, ParamListBase, useNavigation} from "@react-navigation/native";
 import {ENUM_SCREEN_NAME} from "@/shared/enum/screen-name.enum.ts";
 
@@ -10,7 +10,6 @@ const ratio = win.width / 541;
 const CBlogItem = (props) => {
     const navigation: NavigationProp<ParamListBase> = useNavigation();
     const {data} = props;
-    console.log('props', props);
     const {blogTitle, blogCate, blogBrief, blogImage, blogPublished} = props;
     const {fonts, gutters, layout, backgrounds, borders} = useTheme()
 

@@ -1,3 +1,3 @@
-export { default as NewsItem} from './components/C-NewsItem.tsx'
-export { default as NewsItemList } from './components/C-NewsItemList.tsx'
-export { default as NewsItemModel } from './models/M-NewsItem.model.ts'
+export { default as NewsItem} from '@/shared/components/C-News/C-NewsItem.tsx'
+export { default as NewsItemList } from '@/shared/components/C-News/C-NewsItemList.tsx'
+export { default as NewsItemModel } from '../../shared/models/M-NewsItem.model.ts'

@@ -53,7 +53,6 @@ export const generateFontFamilies = () => {
         })
     }, {} as FontFamilies)
 }
-
 export const staticFontStyles = {
     bold: {
         fontWeight: 'bold'

@@ -1,6 +1,6 @@
 import {FlatList, StyleSheet, View} from "react-native";
 import React from "react";
-import {MockNewsDataConst} from "@/screens/News/constant/MockNewsData.const.ts";
+import {MockNewsDataConst} from "@/shared/constant/MockNewsData.const.ts";
 import {useTheme} from "@/theme";
 import {NewsItem, NewsItemModel} from "@/screens/News";
 

@@ -2,7 +2,7 @@ import {Dimensions, SafeAreaView, StyleSheet, View} from "react-native";
 import {useTheme} from "@/theme";
 import React, {memo, useRef, useState} from "react";
 import Carousel, {ICarouselInstance} from "react-native-reanimated-carousel";
-import {CarouselCustomModel} from "@/shared/components/C-Carousel/models/M-Carousel.ts";
+import {CarouselCustomModel} from "@/shared/models/M-Carousel.ts";
 
 const defaultWidth = Dimensions.get('window').width - 28;
 let defaultHeight = 260;
@@ -14,7 +14,6 @@ const Dot = memo(({index, activeIndex, dotStyle, activeDotStyle}: CarouselCustom
     )
 });
 const paginate = (index: number, data: any, dotStyle: any, activeIndex: any, activeDotStyle: any) => {
-    console.log(index, 'index')
     return (
         <View style={styles.dotContainerStyle}>
             {

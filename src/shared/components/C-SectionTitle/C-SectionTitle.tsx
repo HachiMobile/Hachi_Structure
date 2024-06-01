@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from "react-native";
 import React from "react";
-import MSectionTitleModel from "./models/M-SectionTitle.model.ts";
+import MSectionTitleModel from "../../models/M-SectionTitle.model.ts";
 import {mvs} from "@/shared/utils/responsive.ts";
 import {useTheme} from "@/theme";
 import {SvgXml} from "react-native-svg";

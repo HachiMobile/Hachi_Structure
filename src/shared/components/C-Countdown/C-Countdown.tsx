@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Image, StyleSheet, Text, View} from "react-native";
-import MCountdownModel from "@/shared/components/C-Countdown/models/M-Countdown.model.ts";
+import MCountdownModel from "@/shared/models/M-Countdown.model.ts";
 
 
 const CCountdown: React.FC<MCountdownModel> = (props) => {

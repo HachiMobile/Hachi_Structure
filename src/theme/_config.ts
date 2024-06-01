@@ -1,15 +1,14 @@
 import { DarkTheme } from '@react-navigation/native'
 import type { ThemeConfiguration } from '@/types/theme/config'
 import { colorsDark, colorsLight } from './edit/color'
-import { body, heading } from './edit/typography'
 import { borderRadius, borderWidth } from './edit/border'
 import {families, sizes} from "@/theme/edit/font.ts";
+import {body, heading} from "@/theme/edit/typography";
 
 export const config = {
 	fonts: {
 		sizes,
 		colors: colorsLight,
-		// @ts-ignore
 		families,
 		typographies: { ...heading, ...body }
 	},

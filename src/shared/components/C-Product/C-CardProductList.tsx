@@ -5,7 +5,7 @@ import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "
 import { palette } from "@/theme/themes.ts";
 import { SvgXml } from "react-native-svg";
 import IconArrowUp from "@/assets/icons/IconArrowUp.ts";
-import CCardProductItem from "./C-CardProductItem";
+import CCardProductItem from "./C-CardProductItem.tsx";
 
 interface CardList {
   dataProduct: any[],
@@ -15,7 +15,7 @@ interface CardList {
 const CardList = (props) => {
   const { dataProduct } = props;
   const windowWidth = Dimensions.get('window').width - 28; // Lấy chiều rộng của màn hình 64 là padding của view layout 32 + 32
-  const numColumns = Math.floor(windowWidth / 165); // TÍnh số cột 165 là width của item product card 
+  const numColumns = Math.floor(windowWidth / 165); // TÍnh số cột 165 là width của item product card
   const totalItemWidth = numColumns * 165; // Tính tổng chiều rộng
   const totalSpacing = windowWidth - totalItemWidth; // Tính khoảng trống còn lại
   //enum paddingLeft = totalSpacing / 2; // tính padding

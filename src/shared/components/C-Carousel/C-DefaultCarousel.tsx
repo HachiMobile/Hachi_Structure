@@ -5,7 +5,6 @@ const DefaultCarouselItem: React.FC<{
     imageSource: any
 }> = (props) => {
     const {imageSource} = props;
-    console.log(imageSource)
     return (
         <View style={{marginLeft: "2.5%", marginRight: "2.5%"}}>
             <Image

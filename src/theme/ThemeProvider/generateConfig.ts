@@ -13,6 +13,7 @@ export default (variant: Variant) => {
 			? variantConfig.fonts.colors
 			: {})
 	}
+
 	const backgroundColors = {
 		...defaultConfig.backgrounds,
 		...(variantConfig && hasProperty(variantConfig, 'backgrounds')

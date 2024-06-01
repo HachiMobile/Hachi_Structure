@@ -1,6 +1,6 @@
 import { MMKV } from 'react-native-mmkv'
 import {STORAGE_CONFIG} from "@/shared/constant/value.const.ts";
-import create from "zustand";
+import {create} from "zustand";
 import {persist, StateStorage} from "zustand/middleware";
 
 //https://levelup.gitconnected.com/stop-using-react-native-async-storage-fdbcc05a6de3
@@ -34,18 +34,18 @@ export const zustandMMKVStorage: StateStorage = {
 
 
 
-export const useAppPersistStore = create<
-    any, //TODO: Implement type for storage
-    [["zustand/persist", any]] ////TODO: Implement type for storage
->(
-    persist(
-        (set, get) => ({}),
-        {
-            name: "app-persist-storage",
-            getStorage: () => zustandMMKVStorage,
-            serialize: (state) => JSON.stringify(state),
-            deserialize: (state) => JSON.parse(state),
-        },
-    ),
-);
+// export const useAppPersistStore = create<
+//     any, //TODO: Implement type for storage
+//     [["zustand/persist", any]] ////TODO: Implement type for storage
+// >(
+//     persist(
+//         (set, get) => ({}),
+//         {
+//             name: "app-persist-storage",
+//             getStorage: () => zustandMMKVStorage,
+//             serialize: (state) => JSON.stringify(state),
+//             deserialize: (state) => JSON.parse(state),
+//         },
+//     ),
+// );
 

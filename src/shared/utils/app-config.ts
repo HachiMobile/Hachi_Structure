@@ -1,6 +1,6 @@
 import { TEST } from '@env'
 import { WIDTH, HEIGHT } from './responsive'
-import { Platform, StatusBar } from 'react-native'
+import {Platform, StatusBar} from "react-native";
 
 const APP_CONFIG = {
     ENV: {

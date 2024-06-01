@@ -35,7 +35,7 @@ type FontFamilyKeys = `family_${keyof UnionConfiguration['fonts']['families']}`
 
 export type FontFamilies = {
 	[key in FontFamilyKeys]: RemoveBeforeSeparator<key> extends keyof UnionConfiguration['fonts']['families']
-		? UnionConfiguration['fonts']['families'][RemoveBeforeSeparator<key>]
+		? { fontFamily: UnionConfiguration['fonts']['families'][RemoveBeforeSeparator<key>] }
 		: never
 }
 

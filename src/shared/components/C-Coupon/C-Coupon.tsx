@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import MCouponModel from "@/shared/components/C-Coupon/models/M-Coupon.model.ts";
+import MCouponModel from "@/shared/models/M-Coupon.model.ts";
 import {Dimensions, StyleSheet, Text, View} from "react-native";
 
 const CCoupon: React.FC<MCouponModel> = (props) => {

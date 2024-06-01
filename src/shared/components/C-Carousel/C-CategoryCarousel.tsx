@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, View} from "react-native";
 import React from "react";
-import {CarouselCustomModel} from "@/shared/components/C-Carousel/models/M-Carousel.ts";
+import {CarouselCustomModel} from "@/shared/models/M-Carousel.ts";
 
 const CarouselCategoryItemDefault: React.FC<CarouselCustomModel.ComponentItemProps> = (props) => {
     const {data} = props;

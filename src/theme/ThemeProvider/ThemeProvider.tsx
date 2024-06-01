@@ -52,7 +52,6 @@ function ThemeProvider({ children, storage }: Props) {
 	// Initialize theme at default if not defined
 	useEffect(() => {
 		const appHasThemeDefined = storage.getItem('theme');
-		console.log('theme', appHasThemeDefined);
 		if (!appHasThemeDefined) {
 			storage.setItem('theme', 'default');
 			setVariant('default');

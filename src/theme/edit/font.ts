@@ -5,10 +5,10 @@ const sizes = [
 
 //Available global font family
 const families = {
-    Regular_PlusJakartaSans: 'PlusJakartaSans-Regular',
-    Medium_PlusJakartaSans: 'PlusJakartaSans-Medium',
-    SemiBold_PlusJakartaSans: 'PlusJakartaSans-SemiBold',
-    Bold_PlusJakartaSans: 'PlusJakartaSans-Bold',
+    regular: 'PlusJakartaSans-Regular',
+    medium: 'PlusJakartaSans-Medium',
+    semiBold: 'PlusJakartaSans-SemiBold',
+    bold: 'PlusJakartaSans-Bold',
 } as const
 
 export { sizes, families }
