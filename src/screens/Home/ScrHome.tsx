@@ -18,6 +18,7 @@ import {API_LIST} from "@/shared/constant/api-list.const.ts";
 import {API_METHOD_ENUM} from "@/shared/enum/api-method.enum.ts";
 import {families} from "@/theme/edit/font.ts";
 import {zustandMMKVStorage} from "@/shared/utils/storage.ts";
+import FireBaseMessage from "@/shared/components/C-Message/message.tsx";
 
 type MenuItem = {
     Code: number;
@@ -111,6 +112,7 @@ const ScrHome: React.FC = (props: any) => {
             <ScrollView>
                 {renderHeader()}
                 <ScrollView style={[gutters.paddingHorizontal_14, layout.flex_1,]}>
+                <FireBaseMessage />
                     <Text style={[fonts.family_medium, fonts.size_8]}></Text>
                     <View style={[gutters.marginTop_14]}>
                         <CSectionTitle title='Sản phẩm đã xem' suffixIcon={IconSeeMore} />
